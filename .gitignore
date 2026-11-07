@@ -1,0 +1,22 @@
+# Build output
+build/
+out/
+CMakeUserPresets.json
+compile_commands.json
+.cache/
+
+# Local databases and logs (never commit real records)
+*.db
+*.db-wal
+*.db-shm
+*.log
+
+# Editors and local notes
+.vscode/
+.idea/
+*.user
+CLAUDE.md
+
+# Packaging
+dist/
+*.zip
