@@ -33,6 +33,10 @@ enum class ColorRole {
     Info,
     ToastBackground,
     ToastText,
+    RoleAdmin,
+    RoleTeacher,
+    RoleStudent,
+    Overlay,
 };
 
 // Applies the Edu Hub look: Fusion style, a matching QPalette, and the
@@ -66,7 +70,7 @@ signals:
 private:
     Theme() = default;
 
-    ThemeMode m_mode = ThemeMode::Light;
+    ThemeMode m_mode = ThemeMode::Dark; // the default look; light is optional
 };
 
 } // namespace edu::ui

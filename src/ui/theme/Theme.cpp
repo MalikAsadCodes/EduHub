@@ -18,32 +18,37 @@ struct Swatch {
     const char* dark;
 };
 
-// Deep navy and academic gold. Hex is #RRGGBB or #AARRGGBB.
+// Ink and gilt: warm charcoal surfaces, parchment text and a gold accent.
+// The navigation rail stays ink in both modes. Hex is #RRGGBB or #AARRGGBB.
 // clang-format off
 constexpr Swatch kSwatches[] = {
-    {ColorRole::Background,           "background",           "#F3F5FA",   "#0A1222"},
-    {ColorRole::Surface,              "surface",              "#FFFFFF",   "#111B30"},
-    {ColorRole::SurfaceAlt,           "surfaceAlt",           "#EDF1F7",   "#17233C"},
-    {ColorRole::Border,               "border",               "#DCE2EC",   "#24324D"},
-    {ColorRole::Text,                 "text",                 "#13203A",   "#E7ECF5"},
-    {ColorRole::TextMuted,            "textMuted",            "#5D6B84",   "#94A3BD"},
-    {ColorRole::Primary,              "primary",              "#1D3D72",   "#3F6FD0"},
-    {ColorRole::PrimaryHover,         "primaryHover",         "#26508F",   "#557FDA"},
-    {ColorRole::PrimaryText,          "primaryText",          "#FFFFFF",   "#FFFFFF"},
-    {ColorRole::Accent,               "accent",               "#C59A1E",   "#E2B94B"},
-    {ColorRole::AccentSoft,           "accentSoft",           "#FBF2D9",   "#2B2514"},
-    {ColorRole::AccentText,           "accentText",           "#7A5C05",   "#F0CF77"},
-    {ColorRole::RailBackground,       "railBackground",       "#0E1C38",   "#070D1A"},
-    {ColorRole::RailHover,            "railHover",            "#182A4D",   "#111C33"},
-    {ColorRole::RailText,             "railText",             "#AEBBD3",   "#93A2BD"},
-    {ColorRole::RailActiveBackground, "railActiveBackground", "#223A66",   "#17284A"},
-    {ColorRole::RailActiveText,       "railActiveText",       "#F2D27A",   "#F2D27A"},
-    {ColorRole::Success,              "success",              "#1C8556",   "#3DBE85"},
-    {ColorRole::Warning,              "warning",              "#B4770E",   "#E5A93B"},
-    {ColorRole::Danger,               "danger",               "#C23A3A",   "#F07171"},
-    {ColorRole::Info,                 "info",                 "#2F6FD0",   "#6B9CF0"},
-    {ColorRole::ToastBackground,      "toastBackground",      "#13203A",   "#E7ECF5"},
-    {ColorRole::ToastText,            "toastText",            "#FFFFFF",   "#0F1A2E"},
+    {ColorRole::Background,           "background",           "#F1F0EC",   "#16140F"},
+    {ColorRole::Surface,              "surface",              "#FFFFFF",   "#1E1B16"},
+    {ColorRole::SurfaceAlt,           "surfaceAlt",           "#F5F3EE",   "#27231C"},
+    {ColorRole::Border,               "border",               "#DFDBD1",   "#36312A"},
+    {ColorRole::Text,                 "text",                 "#1D1A14",   "#EFE8D8"},
+    {ColorRole::TextMuted,            "textMuted",            "#696253",   "#A69D8B"},
+    {ColorRole::Primary,              "primary",              "#B8892B",   "#D9AE52"},
+    {ColorRole::PrimaryHover,         "primaryHover",         "#C99A3A",   "#E6C06A"},
+    {ColorRole::PrimaryText,          "primaryText",          "#1B160C",   "#1B160C"},
+    {ColorRole::Accent,               "accent",               "#B8892B",   "#D9AE52"},
+    {ColorRole::AccentSoft,           "accentSoft",           "#F4EAD2",   "#30291A"},
+    {ColorRole::AccentText,           "accentText",           "#7A5810",   "#E8C878"},
+    {ColorRole::RailBackground,       "railBackground",       "#17150F",   "#110F0B"},
+    {ColorRole::RailHover,            "railHover",            "#231F18",   "#1D1A14"},
+    {ColorRole::RailText,             "railText",             "#A9A08D",   "#A39A87"},
+    {ColorRole::RailActiveBackground, "railActiveBackground", "#2D2618",   "#2A2416"},
+    {ColorRole::RailActiveText,       "railActiveText",       "#ECCB7A",   "#ECCB7A"},
+    {ColorRole::Success,              "success",              "#2E7D4F",   "#7BC49A"},
+    {ColorRole::Warning,              "warning",              "#A3650A",   "#E3AE4E"},
+    {ColorRole::Danger,               "danger",               "#B5402E",   "#E88A78"},
+    {ColorRole::Info,                 "info",                 "#2F5F9E",   "#8DB3E2"},
+    {ColorRole::ToastBackground,      "toastBackground",      "#1D1A14",   "#EFE8D8"},
+    {ColorRole::ToastText,            "toastText",            "#F4EFE3",   "#1B160C"},
+    {ColorRole::RoleAdmin,            "roleAdmin",            "#B8892B",   "#D9AE52"},
+    {ColorRole::RoleTeacher,          "roleTeacher",          "#2F8073",   "#6FB7A8"},
+    {ColorRole::RoleStudent,          "roleStudent",          "#3F65A3",   "#8DB3E2"},
+    {ColorRole::Overlay,              "overlay",              "#66231D12", "#A0000000"},
 };
 // clang-format on
 

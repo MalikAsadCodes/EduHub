@@ -18,7 +18,9 @@ public:
 
     void setPage(const QString& title, const QString& section);
     void setTermText(const QString& text);
-    void setUser(const QString& displayName, const QString& roleLabel);
+    // roleKey ("admin", "teacher", "student") picks the avatar colour.
+    void setUser(const QString& displayName, const QString& roleLabel,
+                 const QString& roleKey = QStringLiteral("admin"));
 
     QLineEdit* searchField() const { return m_search; }
     QString title() const;
@@ -27,6 +29,7 @@ signals:
     void searchSubmitted(const QString& text);
     void themeToggleRequested();
     void signOutRequested();
+    void changePasswordRequested();
 
 private:
     void updateThemeButton();

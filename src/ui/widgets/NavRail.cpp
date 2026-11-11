@@ -12,6 +12,7 @@
 #include <QPainterPath>
 #include <QPropertyAnimation>
 #include <QPushButton>
+#include <QScrollArea>
 #include <QVBoxLayout>
 
 #include <utility>
@@ -34,7 +35,7 @@ public:
         setProperty("nav", true);
         setCursor(Qt::PointingHandCursor);
         setFocusPolicy(Qt::TabFocus); // focus ring only for keyboard users
-        setMinimumHeight(42);
+        setMinimumHeight(40);
         setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
         setAccessibleName(text);
     }
@@ -93,8 +94,9 @@ NavRail::NavRail(QWidget* parent) : QFrame(parent)
     textColumn->setSpacing(0);
     auto* name = new QLabel(QStringLiteral("Edu Hub"), m_brandText);
     name->setObjectName(QStringLiteral("RailBrandName"));
-    auto* tag = new QLabel(QStringLiteral("University suite"), m_brandText);
+    auto* tag = new QLabel(QStringLiteral("University portal"), m_brandText);
     tag->setObjectName(QStringLiteral("RailBrandTag"));
+    styleEyebrow(tag, 1.4);
     textColumn->addWidget(name);
     textColumn->addWidget(tag);
     m_brandRow->addWidget(m_brandText);
@@ -102,12 +104,21 @@ NavRail::NavRail(QWidget* parent) : QFrame(parent)
     outer->addLayout(m_brandRow);
     outer->addSpacing(14);
 
-    // Page links
-    m_items = new QVBoxLayout;
+    // Page links. They scroll when the window is too short to show them all.
+    auto* scroll = new QScrollArea(this);
+    scroll->setObjectName(QStringLiteral("RailScroll"));
+    scroll->setFrameShape(QFrame::NoFrame);
+    scroll->setWidgetResizable(true);
+    scroll->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    auto* host = new QWidget(scroll);
+    host->setObjectName(QStringLiteral("RailItems"));
+    m_items = new QVBoxLayout(host);
     m_items->setContentsMargins(0, 0, 0, 0);
     m_items->setSpacing(2);
-    outer->addLayout(m_items);
-    outer->addStretch(1);
+    m_items->addStretch(1);
+    scroll->setWidget(host);
+    outer->addWidget(scroll, 1);
+    outer->addSpacing(6);
 
     auto* divider = new QFrame(this);
     divider->setObjectName(QStringLiteral("RailDivider"));
@@ -141,15 +152,13 @@ NavRail::NavRail(QWidget* parent) : QFrame(parent)
 
 void NavRail::addSection(const QString& caption)
 {
-    auto* label = new QLabel(caption.toUpper(), this);
+    auto* label = new QLabel(caption, this);
     label->setObjectName(QStringLiteral("RailSection"));
-    QFont font = label->font();
-    font.setLetterSpacing(QFont::AbsoluteSpacing, 1.2);
-    label->setFont(font);
+    styleEyebrow(label, 1.8);
     label->setVisible(!m_collapsed);
-    if (m_items->count() > 0)
-        m_items->addSpacing(10);
-    m_items->addWidget(label);
+    if (m_items->count() > 1)
+        m_items->insertSpacing(m_items->count() - 1, 10);
+    m_items->insertWidget(m_items->count() - 1, label);
     m_sections.append(label);
 }
 
@@ -160,7 +169,7 @@ void NavRail::addItem(const QString& id, const QString& text, const QString& ico
     button->setObjectName(QStringLiteral("nav_") + id);
     button->setCheckable(true);
     button->setCollapsed(m_collapsed);
-    m_items->addWidget(button);
+    m_items->insertWidget(m_items->count() - 1, button);
     m_group->addButton(button);
     m_buttons.insert(id, button);
     m_order.append(id);

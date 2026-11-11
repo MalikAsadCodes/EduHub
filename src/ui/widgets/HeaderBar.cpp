@@ -3,6 +3,7 @@
 #include "ui/theme/Icons.h"
 #include "ui/theme/Theme.h"
 #include "ui/widgets/IconLabel.h"
+#include "ui/widgets/UiHelpers.h"
 
 #include <QAction>
 #include <QHBoxLayout>
@@ -39,14 +40,15 @@ HeaderBar::HeaderBar(QWidget* parent) : QFrame(parent)
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 
     auto* row = new QHBoxLayout(this);
-    row->setContentsMargins(28, 14, 20, 14);
+    row->setContentsMargins(28, 16, 20, 14);
     row->setSpacing(12);
 
     // Breadcrumb over title
     auto* titles = new QVBoxLayout;
-    titles->setSpacing(1);
+    titles->setSpacing(2);
     m_breadcrumb = new QLabel(this);
     m_breadcrumb->setObjectName(QStringLiteral("Breadcrumb"));
+    styleEyebrow(m_breadcrumb, 1.6);
     m_title = new QLabel(this);
     m_title->setObjectName(QStringLiteral("PageTitle"));
     titles->addWidget(m_breadcrumb);
@@ -120,9 +122,11 @@ HeaderBar::HeaderBar(QWidget* parent) : QFrame(parent)
     identityAction->setDefaultWidget(identity);
     menu->addAction(identityAction);
     menu->addSeparator();
-    QAction* changePassword = menu->addAction(QStringLiteral("Change password..."));
-    changePassword->setEnabled(false);
-    changePassword->setToolTip(QStringLiteral("Available once sign-in is added"));
+    QAction* changePassword =
+        menu->addAction(Icons::themed(QStringLiteral("key"), ColorRole::Text),
+                        QStringLiteral("Change password..."), this,
+                        &HeaderBar::changePasswordRequested);
+    changePassword->setObjectName(QStringLiteral("ChangePasswordAction"));
     menu->addSeparator();
     menu->addAction(Icons::themed(QStringLiteral("logout"), ColorRole::Text),
                     QStringLiteral("Sign out"), this, &HeaderBar::signOutRequested);
@@ -132,8 +136,9 @@ HeaderBar::HeaderBar(QWidget* parent) : QFrame(parent)
 void HeaderBar::setPage(const QString& title, const QString& section)
 {
     m_title->setText(title);
-    m_breadcrumb->setText(section.isEmpty() ? QStringLiteral("Edu Hub")
-                                            : QStringLiteral("Edu Hub  \u203A  %1").arg(section));
+    const QString crumb = section.isEmpty() ? QStringLiteral("Edu Hub")
+                                            : QStringLiteral("Edu Hub  /  %1").arg(section);
+    m_breadcrumb->setText(crumb.toUpper());
 }
 
 QString HeaderBar::title() const
@@ -146,8 +151,11 @@ void HeaderBar::setTermText(const QString& text)
     m_term->setText(text);
 }
 
-void HeaderBar::setUser(const QString& displayName, const QString& roleLabel)
+void HeaderBar::setUser(const QString& displayName, const QString& roleLabel,
+                        const QString& roleKey)
 {
+    m_avatar->setProperty("accent", roleKey);
+    repolish(m_avatar);
     m_avatar->setText(initialsOf(displayName));
     m_avatar->setToolTip(QStringLiteral("%1 (%2)").arg(displayName, roleLabel));
     m_menuName->setText(displayName);
